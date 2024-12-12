@@ -1,0 +1,48 @@
+{
+  "log": {
+    "2024-12-11": [
+      {
+        "mood": "Happy",
+        "activity": 5,
+        "notes": "Good"
+      },
+      {
+        "mood": "Happy",
+        "activity": 4,
+        "notes": "55"
+      },
+      {
+        "mood": "Sad",
+        "activity": 2,
+        "notes": "Hellllll"
+      },
+      {
+        "mood": "Sad",
+        "activity": 2,
+        "notes": "Sad"
+      },
+      {
+        "mood": "Happy",
+        "activity": 3,
+        "notes": "42"
+      },
+      {
+        "mood": "Sad",
+        "activity": 1,
+        "notes": "DDA"
+      },
+      {
+        "mood": "Angry",
+        "activity": 8,
+        "notes": "ujb"
+      }
+    ],
+    "2024-12-12": [
+      {
+        "mood": "Happy",
+        "activity": 9,
+        "notes": "YAY"
+      }
+    ]
+  }
+}
