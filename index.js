@@ -153,31 +153,49 @@ async function analyzeData() {
 }
 
 async function trendingData() {
-  console.log("Trending...");
+  console.log(chalk.green("Trending..."));
   await db.read();
 
   if (!db.data.log) {
-    console.log("No data to analyze.");
+    console.log(chalk.red("No data to analyze."));
     return;
   }
 
   const logs = db.data.log;
   const series = [];
+  const dates = Object.keys(logs).sort();
 
-  for (const date in logs) {
-    const dayLogs = logs[date];
-    const averageActivity = dayLogs.reduce((sum, log) => sum + log.activity, 0) / dayLogs.length;
-    series.push(averageActivity);
-    console.log(`Date: ${date}, Average Activity: ${averageActivity}`);
+  if (dates.length === 0) {
+    console.log(chalk.red("No data to plot."));
+    return;
+  }
+
+  const startDate = new Date(dates[0]);
+  const endDate = new Date(dates[dates.length - 1]);
+  const currentDate = new Date(startDate);
+
+  while (currentDate <= endDate) {
+    const dateString = currentDate.toISOString().split("T")[0];
+    if (logs[dateString]) {
+      const dayLogs = logs[dateString];
+      const averageActivity = dayLogs.reduce((sum, log) => sum + log.activity, 0) / dayLogs.length;
+      series.push(averageActivity);
+      console.log(chalk.yellow(`Date: ${dateString}, Average Activity: ${averageActivity}`));
+    } else {
+      series.push(0); // Push 0 if there are no logs for the date
+    }
+    currentDate.setDate(currentDate.getDate() + 1); // Move to the next day
   }
 
   if (series.length === 0) {
-    console.log("No data to plot.");
+    console.log(chalk.red("No data to plot."));
     return;
   }
 
   console.log(asciichart.plot(series));
+  console.log(chalk.redBright("Trending Data Complete!"));
 }
+
 
 figlet("Tracking App", function (err, data) {
   if (err) {
